@@ -1,0 +1,457 @@
+## R version 4.1.1 (2021-08-10) -- "Kick Things"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> install.packages('stringr')
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into 'C:/Users/Luqman/Documents/R/win-library/4.1'
+(as 'lib' is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/stringr_1.4.0.zip'
+Content type 'application/zip' length 217022 bytes (211 KB)
+downloaded 211 KB
+
+package 'stringr' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Luqman\AppData\Local\Temp\RtmpsFo6a5\downloaded_packages
+> library(xml2)
+> library(rvest)
+> library(stringr)
+> url <- 'https://www.amazon.com/Samsung-Electronics-Included-Long-Lasting-Performance/dp/B09973TGP9/ref=sr_1_1_sspa?keywords=samsung+tablet+s7+fe&qid=1637368564&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUE5N01JSlNRWklSQUkmZW5jcnlwdGVkSWQ9QTAwMjgzMDkxTzZYTkVCRU9HMThMJmVuY3J5cHRlZEFkSWQ9QTAxNTM5MTkzNUlTVlo1TU84S1c0JndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=='
+> webpage <- read_html(utl)
+Error in read_html(utl) : object 'utl' not found
+> webpage <- read_html(url)
+> title_html <- html_nodes(webpage, 'h1#title')
+> title <- html_text(title_html)
+> title <- str_replace_all(title, "[\r\n]", "")
+> head(title)
+[1] "Samsung Electronics Galaxy Tab S7 FE 2021 Android Tablet 12.4" Screen WiFi 64GB S Pen Included Long-Lasting Battery Powerful Performance, Mystic Pink"
+> price_html <- html_nodes(webpage, 'span#price_inside_buybox')
+> price <- html_text(price_html)
+> price <- str_replace_all(price, "[\n","")
+Error in stri_replace_all_regex(string, pattern, fix_replacement(replacement),  : 
+  Missing closing bracket on a bracket expression. (U_REGEX_MISSING_CLOSE_BRACKET, context=`[
+`)
+> price <- str_replace_all(price, "[\n]","")
+> desc_html <- html_nodes(webpage, 'span#a-list-item')
+> desc <- html_text(desc_html)
+> head(desc)
+character(0)
+> desc_html <- html_nodes(webpage, 'span#replacementPartsFirmentBullet')
+> desc <- html_text(desc_html)
+> head(desc)
+character(0)
+> desc_html <- html_nodes(webpage, 'span#productOverview_feature_div')
+> desc <- html_text(desc_html)
+> desc_html <- html_nodes(webpage, 'div#productOverview_feature_div')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(price, "[\n]","")
+> desc_html <- html_nodes(webpage, 'div#productOverview_feature_div')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] "SeriesTab S7 FEBrandSamsung ElectronicsScreen Size12.4 InchesOperating SystemAndroidMemory Storage Capacity64 GBfunction logProductOverviewMetric(metric) {if(typeof window.csa !== 'undefined') {var myEvents = csa(\"Events\", {producerId: \"dppinfo\"});myEvents(\"log\", {schemaId: \"dppinfo.productOverviewClientSideEvents.1\",eventName: metric},{ent:'all'});}}logProductOverviewMetric('productOverviewDesktopRendered');"
+> desc_html <- html_nodes(webpage, 'span#a-list-item')
+> desc <- html_text(desc_html)
+> View(desc_html)
+> View(price_html)
+> View(desc_html)
+> desc_html <- html_nodes(webpage, 'div#featurebullets_feature_div')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] "About this itemThis fits your . Make sure this fitsby entering your model number.P.when(\"ReplacementPartsBulletLoader\").execute(function(module){ module.initializeDPX(); })Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment breakBold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yoursWrite, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever beforeMore Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tabletPowered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single chargeSpeed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's noticeStream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports.Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you.¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST.Show more"
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] "About this itemThis fits your . Make sure this fitsby entering your model number.P.when(\"ReplacementPartsBulletLoader\").execute(function(module){ module.initializeDPX(); })Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment breakBold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yoursWrite, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever beforeMore Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tabletPowered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single chargeSpeed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's noticeStream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports.Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you.¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST.Show more"
+> desc_html <- html_nodes(webpage, 'span#a-list-item')
+> desc <- str_replace_all(desc, "[\n]","")
+> desc_html <- html_nodes(webpage, 'span#a-list-item')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+character(0)
+> desc_html <- html_nodes(webpage, 'div#hsx-rpp-bullet-fits-message')
+> desc <- html_text(desc_html)
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] "This fits your ."
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> desc <- str_replace_all(desc, "[\This fits your]","")
+Error: '\T' is an unrecognized escape in character string starting ""[\T"
+> desc <- str_replace_all(desc, "[This fits your]",""
++ 
++ 
++ )
+> desc <- str_replace_all(desc, "[\This fits your]","")
+Error: '\T' is an unrecognized escape in character string starting ""[\T"
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] "About this itemThis fits your . Make sure this fitsby entering your model number.P.when(\"ReplacementPartsBulletLoader\").execute(function(module){ module.initializeDPX(); })Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment breakBold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yoursWrite, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever beforeMore Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tabletPowered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single chargeSpeed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's noticeStream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports.Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you.¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST.Show more"
+> rate_html <- html_nodes(webpage, 'span#arcPopover')
+> rate <- html_text(rate_html)
+> rate_html <- html_nodes(webpage, 'span#arcPopover-content')
+> rate <- html_text(rate_html)
+> rate_html <- html_nodes(webpage, 'span#act-average-starss-rating-text')
+> rate <- html_text(rate_html)
+> rate_html <- html_nodes(webpage, 'span#acr-average-starss-rating-text')
+> rate <- html_text(rate_html)
+> rate_html <- html_nodes(webpage, 'span#acrPopover')
+> rate <- html_text(rate_html)
+> desc <- str_replace_all(rate, "[\n]","")
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> rate_html <- html_nodes(webpage, 'span#acrPopover')
+> rate <- html_text(rate_html)
+> rate <- str_replace_all(rate, "[\n]","")
+> head(rate)
+[1] "4.7 out of 5 stars" "4.7 out of 5 stars"
+> rate_html <- html_nodes(webpage, 'span#arcPopover')
+> rate <- html_text(rate_html)
+> rate_html <- html_nodes(webpage, 'span#acrPopover')
+> rate <- html_text(rate_html)
+> rate <- str_replace_all(rate, "[\n]","")
+> head(rate)
+[1] "4.7 out of 5 stars" "4.7 out of 5 stars"
+> desc <- str_trim(desc)
+> head(desc)
+[1] "About this itemThis fits your . Make sure this fitsby entering your model number.P.when(\"ReplacementPartsBulletLoader\").execute(function(module){ module.initializeDPX(); })Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment breakBold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yoursWrite, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever beforeMore Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tabletPowered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single chargeSpeed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's noticeStream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports.Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you.¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST.Show more"
+> rate <- str_trim(rate)
+> head(rate)
+[1] "4.7 out of 5 stars" "4.7 out of 5 stars"
+> rate <- str_replace_all(rate, "[\r\n]", "")
+> rate <- str_trim(rate)
+> head(rate)
+[1] "4.7 out of 5 stars" "4.7 out of 5 stars"
+> size_html <- html_nodes(webpage, 'span#selection')
+> size <- html_text(size_html)
+> head(size)
+character(0)
+> size_html <- html_nodes(webpage, 'div#variation_size_name')
+> size <- html_text(size_html)
+> size <- str_replace_all(size, "[\n]","")
+> size_html <- html_nodes(webpage, 'div#variation_size_name')
+> size_html <- html_nodes(size_html, 'span.selection')
+> size <- html_text(size_html)
+> size <- str_replace_all(size, "[\n]","")
+> head(size)
+[1] "64GB"
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'span.a-lis-item')
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'span.a-list-item')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] " Make sure this fitsby entering your model number."                                                                                                                                                                                                        
+[2] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                            
+[3] "Bold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yours"                                                                                                            
+[4] "Write, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever before"                                                  
+[5] "More Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tablet"
+[6] "Powered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single charge"                                                                                                                  
+> color_html <- html_nodes(webpage, 'div#variation_color_name')
+> color_html <- html_nodes(color_html, 'span.selection')
+> color <- html_text(color_html)
+> color <- str_replace_all(color, "[\n]", "")
+> head(color)
+[1] "Mystic Pink"
+> product_data <- data.frame(Title=title, Price=price, Description = desc, Rating = rate, Size = size, COlor = color)
+Error in data.frame(Title = title, Price = price, Description = desc,  : 
+  arguments imply differing number of rows: 1, 11, 2
+> product_data <- data.frame(Title=title, Price=price, Description = desc, Rating = rate, Size = size, Color = color)
+Error in data.frame(Title = title, Price = price, Description = desc,  : 
+  arguments imply differing number of rows: 1, 11, 2
+> product_data <- data.frame(Title=title, Size = size, Rating = rate, Price=price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Rating = rate, Price = price,  : 
+  arguments imply differing number of rows: 1, 2, 11
+> product_data <- data.frame(Title = title, Size = size, Rating = rate, Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Rating = rate, Price = price,  : 
+  arguments imply differing number of rows: 1, 2, 11
+> View(webpage)
+> View(desc_html)
+> View(rate_html)
+> head(desc)
+[1] " Make sure this fitsby entering your model number."                                                                                                                                                                                                        
+[2] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                            
+[3] "Bold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yours"                                                                                                            
+[4] "Write, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever before"                                                  
+[5] "More Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tablet"
+[6] "Powered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single charge"                                                                                                                  
+> head(rate)
+[1] "4.7 out of 5 stars" "4.7 out of 5 stars"
+> desc[-c(1,3,4,5,6)]
+[1] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                                                                                                                                                                                                                                                        
+[2] "Speed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's notice"                                                                                                                                                                                                                                                                         
+[3] "Stream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports"                                                                                                                                                                                                             
+[4] "160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports."                                                                                                                                                                                                                                                                                
+[5] "Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you."                                                                                                                                                                                                                                                                                                                 
+[6] "¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST."
+> head(desc)
+[1] " Make sure this fitsby entering your model number."                                                                                                                                                                                                        
+[2] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                            
+[3] "Bold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yours"                                                                                                            
+[4] "Write, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever before"                                                  
+[5] "More Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tablet"
+[6] "Powered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single charge"                                                                                                                  
+> desc <- desc[-c(1,3,4,5,6)]
+> head(desc)
+[1] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                                                                                                                                                                                                                                                        
+[2] "Speed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's notice"                                                                                                                                                                                                                                                                         
+[3] "Stream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports"                                                                                                                                                                                                             
+[4] "160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports."                                                                                                                                                                                                                                                                                
+[5] "Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you."                                                                                                                                                                                                                                                                                                                 
+[6] "¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST."
+> desc <- desc(2)
+Error in desc(2) : could not find function "desc"
+> desc
+[1] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                                                                                                                                                                                                                                                        
+[2] "Speed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's notice"                                                                                                                                                                                                                                                                         
+[3] "Stream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports"                                                                                                                                                                                                             
+[4] "160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports."                                                                                                                                                                                                                                                                                
+[5] "Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you."                                                                                                                                                                                                                                                                                                                 
+[6] "¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST."
+> desc(1)
+Error in desc(1) : could not find function "desc"
+> desc <- list(1:6)
+> desc
+[[1]]
+[1] 1 2 3 4 5 6
+
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> 
+> desc_html <- html_nodes(desc_html, 'span.a-list-item')
+> 
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc)
+[1] " Make sure this fitsby entering your model number."                                                                                                                                                                                                        
+[2] "Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break"                            
+[3] "Bold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yours"                                                                                                            
+[4] "Write, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever before"                                                  
+[5] "More Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tablet"
+[6] "Powered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single charge"                                                                                                                  
+> product_data <- data.frame(Title = title, Size = size, Rating = rate, Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Rating = rate, Price = price,  : 
+  arguments imply differing number of rows: 1, 2, 11
+> product_data <- data.frame(Title = title(words), Size = size(words), Rating = rate(words), Price = price(words), Description = desc(words), Color = color(words))
+Error in title(words) : plot.new has not been called yet
+> product_data <- data.frame(Title = title, Size = size, Rating = rate, Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Rating = rate, Price = price,  : 
+  arguments imply differing number of rows: 1, 2, 11
+> product_data <- data.frame(Title = title, Size = size, Price = price, Color = color)
+> atr(product_data)
+Error in atr(product_data) : could not find function "atr"
+> str(product_data)
+'data.frame':	1 obs. of  4 variables:
+ $ Title: chr "Samsung Electronics Galaxy Tab S7 FE 2021 Android Tablet 12.4" Screen WiFi 64GB S Pen Included Long-Lasting Bat"| __truncated__
+ $ Size : chr "64GB"
+ $ Price: chr "$429.99"
+ $ Color: chr "Mystic Pink"
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'span.a-list-item(1)')
+Error in parse_simple_selector(stream) : 
+  Expected selector, got <DELIM '(' at 17>
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'li.a-list-item')
+> desc <- html_text(desc_html)
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'li.a-list-item(1)')
+Error in parse_simple_selector(stream) : 
+  Expected selector, got <DELIM '(' at 15>
+> desc_html <- html_nodes(desc_html, 'li(1).a-list-item')
+Error in parse_simple_selector(stream) : 
+  Expected selector, got <DELIM '(' at 3>
+> length(desc_html)
+[1] 1
+> desc_html
+{xml_nodeset (1)}
+[1] <div id="feature-bullets" class="a-section a-spacing ...
+> desc <- html_text(desc_html)
+> desc
+[1] "\n\n\n\n\n\n\nAbout this item\n\n\n\n\n\n\nThis fits your .\n\n\n\n\n\n Make sure this fits\nby entering your model number.\n\n\n\nP.when(\"ReplacementPartsBulletLoader\").execute(function(module){ module.initializeDPX(); })\n\nBig Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment break\n\n\n\n\nBold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yours\n\n\n\n\nWrite, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever before\n\n\n\n\nMore Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tablet\n\n\n\n\nPowered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single charge\n\n\n\n\nSpeed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's notice\n\n\n\n\nStream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports\n\n\n\n\n\n160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports.\n\nPuts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you.\n\n¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST.\n\n\nShow more\n\n\n\n\n\n"
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'li.a-list-item')
+> desc <- html_text(desc_html)
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'span.a-list-item')
+> desc <- html_text(desc_html)
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc <- html_text(desc_html)
+> desc <- str_replace_all(desc, "[\n]","")
+> head(desc\)
+Error: unexpected '\\' in "head(desc\"
+> head(desc)
+[1] "About this itemThis fits your . Make sure this fitsby entering your model number.P.when(\"ReplacementPartsBulletLoader\").execute(function(module){ module.initializeDPX(); })Big Screen, Big Experience: A large 12.4 inch display brings your content to life in brilliant color whether indoors or outdoors, making Samsung Galaxy S7 FE a great tablet for study time or for a quick entertainment breakBold Colors, Bold Statement: Choose a bold color - Mystic Black, Mystic Green, Mystic Silver or Mystic Pink - that makes it unmistakably yoursWrite, Draw, Clip, Tap with S Pen: Take notes in class, sketch out an idea or even doodle with the included S Pen*, featuring a responsive new design that feels closer to pen on paper than ever beforeMore Workspace, More Ways to Work: Master every assignment with Galaxy connectivity; Get more done on an expanded workstation that lets you hand off content between your devices, or enjoy a PC like experience with multiple windows open on your tabletPowered to Do More: Galaxy Tab S7 FE features a long battery life* to help you power through your day, and then some, on a single chargeSpeed to Move, Space to Grow: With the Qualcomm SM7225 Octa-Core processor, you'll enjoy smooth entertainment; Plus, high storage memory lets you save and store what you need to access on a moment's noticeStream Your Heart Out, 160+ Channels: Unwind with 2 months of ad free access to millions of videos with YouTube Premium*; Also get free access to Samsung Mobile TV Plus, as you dive into over 160 channels and videos on demand, such as movies, music, news and sports160+ channels.100% free: Indulge your appetite for entertainment with free access to Samsung Mobile TV Plus. Dive into over 160 channels and videos on demand, such as movies, music, news and sports.Puts you center stage: Stay in frame with a landscape view that automatically puts you front and center. And with a wide-angle view, you can show offmore around you.¹S Pen included with the tablet.²Based on average battery life under typical usage conditions. Actual battery life depends on factors such as network, features selected, and other application-usage patterns. Results may vary.³With eligible purchase. New users only (no past trial of YouTube Premium, YouTube Music Premium, YouTube Red or Google Play Music). Redeem in the YouTube application on eligible devices between January 14, 2021 and April 5, 2022 at 11:59pm PST.Show more"
+> desc_html <- html_nodes(webpage, 'ul#a-unordered-list a-vertical a-spacing-mini')
+> desc <- html_text(desc_html)
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'li')
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc_html <- html_nodes(desc_html, 'li(1)')
+Error in parse_simple_selector(stream) : 
+  Expected selector, got <DELIM '(' at 3>
+> desc_html <- html_nodes(desc_html, 'li.replacementPartsFitmentBullet')
+> desc_html <- html_nodes(webpage, 'div#feature-bullets')
+> desc <- str_replace_all(desc, "[\n]","")
+> product_data <- data.frame(Title = title, Size = size, Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Price = price, Description = desc,  : 
+  arguments imply differing number of rows: 1, 0
+> head(desc)
+character(0)
+> desc <- str("N/A")
+ chr "N/A"
+> desc
+NULL
+> product_data <- data.frame(Title = title, Size = size, Rating = rate, Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Rating = rate, Price = price,  : 
+  arguments imply differing number of rows: 1, 2, 0
+> product_data <- data.frame(Title = title, Size = size, Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Price = price, Description = desc,  : 
+  arguments imply differing number of rows: 1, 0
+> Desc <- 1
+> product_data <- data.frame(Title = title, Size = size,Price = price, Description = desc, Color = color)
+Error in data.frame(Title = title, Size = size, Price = price, Description = desc,  : 
+  arguments imply differing number of rows: 1, 0
+> product_data <- data.frame(Title = title, Size = size,Price = price, Color = color)
+> str(product_data)
+'data.frame':	1 obs. of  4 variables:
+ $ Title: chr "Samsung Electronics Galaxy Tab S7 FE 2021 Android Tablet 12.4" Screen WiFi 64GB S Pen Included Long-Lasting Bat"| __truncated__
+ $ Size : chr "64GB"
+ $ Price: chr "$429.99"
+ $ Color: chr "Mystic Pink"
+> library(jsonlite)
+> json_data <- toJSON(product_data)
+> cat(json_data)
+[{"Title":"Samsung Electronics Galaxy Tab S7 FE 2021 Android Tablet 12.4" Screen WiFi 64GB S Pen Included Long-Lasting Battery Powerful Performance, Mystic Pink","Size":"64GB","Price":"$429.99","Color":"Mystic Pink"}]
